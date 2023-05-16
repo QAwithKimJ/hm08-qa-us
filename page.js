@@ -31,6 +31,7 @@ module.exports = {
     cardPaymentMethodIcon: 'img[alt="card"]',
     // Modals
     phoneNumberModal: '.modal',
+    driverSearchModal: '.order-body',
     // Functions
     fillAddresses: async function(from, to) {
         const fromField = await $(this.fromField);
@@ -124,12 +125,11 @@ module.exports = {
         const waitForTheDriverButton = await $(this.waitForTheDriverButton);
         await waitForTheDriverButton.click();
     },
-    orderIceCream: async function() {
+    orderIceCream: async function(quantity) {
         const iceCreamCounter = await $(this.iceCreamContainer).parentElement().$(this.iceCreamCounter);
         await iceCreamCounter.scrollIntoView();
-        await iceCreamCounter.click();
-        await iceCreamCounter.click();
-        const iceCreamNumber = await $(this.iceCreamContainer).parentElement().$(this.iceCreamCount);
-        return iceCreamNumber.getText(); 
+        for (i = 0; i < quantity; i++) {
+        await iceCreamCounter.click()
+        }
     },
 };

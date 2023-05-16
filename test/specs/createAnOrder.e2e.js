@@ -1,5 +1,7 @@
 const page = require('../../page');
-const helper = require('../../helper')
+const helper = require('../../helper');
+//const { $ } = require('webdriverio/build/commands/element');
+
 
 describe('Checking the functionality of Urban Routes', async () => {
     /*it('should open phone number modal', async () => {
@@ -79,21 +81,27 @@ describe('Checking the functionality of Urban Routes', async () => {
         await expect(await $(cardPaymentMethodIcon)).toBeExisting(); 
        
         // leaving a message for the driver
-        const messageDriverButton = await page.writeMessageToDriver('no music please');
-        await expect(messageDriverButton).toHaveValue('no music please'); 
+        const message = "no music please";
+        const messageToDriver = await page.writeMessageToDriver(message);
+        await expect(messageToDriver).toHaveValue(message);
 
         // ordering a blanket and handkerchiefs 
         const orderReqs = await page.orderBlanketAndHandkerchiefs();
-       
+        const blanketCheckbox = await browser.$(".switch-input");
+        const isChecked = await blanketCheckbox.isSelected();
+        await expect(isChecked).toBe(true);
+
         // ordering 2 Ice Creams
-        const iceCreamNumber = await page.orderIceCream();
-        await expect(iceCreamNumber).toBe('2');
+        const iceCreamNumber = await page.orderIceCream(2);
+        const iceCount = await $('.counter-value').getText();
+        await expect(iceCount).toBe('2');
 
         // waiting for the driver
         await page.waitForTheDriver();
-        await expect($('.order-body')).toBeExisting(); 
+        await expect($('.smart-button-main')).toBeExisting();
+        await expect($('.order-body')).toBeExisting();
     })
-
+        
       })
 
 
